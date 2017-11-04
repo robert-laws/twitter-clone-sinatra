@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title></title>
-  </head>
+<h1>Edit Tweet</h1>
 
-  <body>
-    <%= yield %>
-  </body>
-</html>
+<form action="/tweets/<%= @tweet.id %>/edit" method="POST">
+  <label>Content:</label> <input type="text" id="content" name="content" value="<%= @tweet.content %>">
+  <input type="submit" id="submit" name="submit" value="Edit Tweet">
+</form>
