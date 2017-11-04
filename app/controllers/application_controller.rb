@@ -17,11 +17,11 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
-  get "/users/login" do
+  get "/login" do
     erb :'users/login'
   end
 
-  post "/users/login" do
+  post "/login" do
     @user = User.find_by(username: params[:username], email: params[:email])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
@@ -32,11 +32,11 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  get "/users/create_user" do
+  get "/signup" do
     erb :'users/create_user'
   end
 
-  post "/users/create_user" do
+  post "/signup" do
     user = User.new(username: params[:username], email: params[:email], password: params[:password])
 
     if user.save
@@ -45,6 +45,11 @@ class ApplicationController < Sinatra::Base
     else
       redirect to "/users/error"
     end
+  end
+
+  get "/logout" do
+    session.clear
+    erb :index
   end
 
   get "/users/:slug" do
